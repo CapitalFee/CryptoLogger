@@ -59,11 +59,11 @@ func NewLogger(config *Config) *Logger {
 	return logger
 }
 
-func (l Logger) LogF(level Severity, args ...any) string {
+func (l Logger) LogF(level Severity, format string, args ...any) string {
 	message := fmt.Sprintf(
 		"%s %s %s: %s",
 		time.Now().UTC().Format(time.RFC3339Nano),
-		l.cnf.Name, level, fmt.Sprint(args...),
+		l.cnf.Name, level, fmt.Sprint(format, args),
 	)
 
 	switch l.cnf.Output {
@@ -76,15 +76,15 @@ func (l Logger) LogF(level Severity, args ...any) string {
 	return message
 }
 
-func (l Logger) ErrorF(args ...any) string {
-	return l.LogF(SeverityError, args...)
+func (l Logger) ErrorF(format string, args ...any) string {
+	return l.LogF(SeverityError, format, args...)
 }
 
-func (l Logger) Fatal(args ...any) {
-	l.LogF(SeverityFatal, args...)
+func (l Logger) Fatal(format string, args ...any) {
+	l.LogF(SeverityFatal, format, args...)
 	os.Exit(1)
 }
 
-func (l Logger) Info(args ...any) string {
-	return l.LogF(SeverityInfo, args...)
+func (l Logger) Info(format string, args ...any) string {
+	return l.LogF(SeverityInfo, format, args...)
 }
