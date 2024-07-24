@@ -1,4 +1,4 @@
-package logger_test
+package CryptoLogger_test
 
 import (
 	"os"
@@ -6,11 +6,11 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Kbayero/logger"
+	"github.com/CryptoThund/CryptoLogger"
 )
 
 func TestErrorFStdout(t *testing.T) {
-	myLogger := logger.NewLogger(&logger.Config{Name: "TestLogger", Output: "stdout"})
+	myLogger := CryptoLogger.NewLogger(&CryptoLogger.Config{Name: "TestLogger", Output: "stdout"})
 	message := myLogger.ErrorF("Test error message")
 	if !strings.Contains(message, "TestLogger ERROR: Test error message") {
 		t.Errorf("ErrorF did not return expected message, got: %s", message)
@@ -19,7 +19,7 @@ func TestErrorFStdout(t *testing.T) {
 
 func TestErrorFFile(t *testing.T) {
 	logFile := "test.log"
-	myLogger := logger.NewLogger(&logger.Config{Name: "TestLogger", Output: logFile})
+	myLogger := CryptoLogger.NewLogger(&CryptoLogger.Config{Name: "TestLogger", Output: logFile})
 	myLogger.ErrorF("Test error message")
 
 	// Read the log file
@@ -36,7 +36,7 @@ func TestErrorFFile(t *testing.T) {
 
 func TestFatalStdout(t *testing.T) {
 	if os.Getenv("BE_CRASHER") == "1" {
-		myLogger := logger.NewLogger(&logger.Config{Name: "TestLogger", Output: "stdout"})
+		myLogger := CryptoLogger.NewLogger(&CryptoLogger.Config{Name: "TestLogger", Output: "stdout"})
 		myLogger.Fatal("Test fatal error")
 		return
 	}
@@ -52,7 +52,7 @@ func TestFatalStdout(t *testing.T) {
 func TestFatalFile(t *testing.T) {
 	if os.Getenv("BE_CRASHER") == "1" {
 		logFile := "test_fatal.log"
-		myLogger := logger.NewLogger(&logger.Config{Name: "TestLogger", Output: logFile})
+		myLogger := CryptoLogger.NewLogger(&CryptoLogger.Config{Name: "TestLogger", Output: logFile})
 		myLogger.Fatal("Test fatal error")
 		return
 	}
@@ -77,7 +77,7 @@ func TestFatalFile(t *testing.T) {
 }
 
 func TestInfoStdout(t *testing.T) {
-	myLogger := logger.NewLogger(&logger.Config{Name: "TestLogger", Output: "stdout"})
+	myLogger := CryptoLogger.NewLogger(&CryptoLogger.Config{Name: "TestLogger", Output: "stdout"})
 	message := myLogger.Info("Test info message")
 	if !strings.Contains(message, "TestLogger INFO: Test info message") {
 		t.Errorf("Info did not return expected message, got: %s", message)
@@ -86,7 +86,7 @@ func TestInfoStdout(t *testing.T) {
 
 func TestInfoFile(t *testing.T) {
 	logFile := "test_info.log"
-	myLogger := logger.NewLogger(&logger.Config{Name: "TestLogger", Output: logFile})
+	myLogger := CryptoLogger.NewLogger(&CryptoLogger.Config{Name: "TestLogger", Output: logFile})
 	myLogger.Info("Test info message")
 
 	// Read the log file

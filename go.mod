@@ -1,4 +1,4 @@
-module github.com/Kbayero/logger
+module github.com/CryptoThund/CryptoLogger
 
 go 1.21.1
 
